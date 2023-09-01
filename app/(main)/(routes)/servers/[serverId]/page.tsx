@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ServerPage = ({params}:{params:{serverId:string}}) => {
+const ServerIdPage = ({params}:{params:{serverId:string}}) => {
   return (
     <div>ServerPage</div>
   )
 }
 
-export default ServerPage
+export default ServerIdPage;
