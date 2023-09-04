@@ -1,9 +1,11 @@
 import { redirectToSignIn } from "@clerk/nextjs";
-
-import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
+
+import { db } from "@/lib/db";
+import ChatInput from "@/components/chat/chat-input";
+import { currentProfile } from "@/lib/current-profile";
 import { ChatHeader } from "@/components/chat/chat-header";
+import ChatMessages from "@/components/chat/chat-messages";
 
 
 interface ChannelIdPageProps {
@@ -42,14 +44,38 @@ const ChannelIdPage =async ({
 
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-      <ChatHeader 
+      <ChatHeader
         name={channel.name}
+        channelType={channel.type}
         serverId={channel.serverId}
         type="channel"
-
+      />
+      <ChatMessages
+        member={member}
+        name={channel.name}
+        chatId={channel.id}
+        type="channel"
+        apiUrl="/api/messages"
+        socketUrl="/api/socket/messages"
+        socketQuery={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
+        paramKey="channelId"
+        paramValue={channel.id}
+        channelType={channel.type}
+      />
+      <ChatInput
+        name={channel.name}
+        type="channel"
+        apiUrl={"/api/socket/messages"}
+        query={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
       />
     </div>
-  )
+  );
 }
 
 export default ChannelIdPage
