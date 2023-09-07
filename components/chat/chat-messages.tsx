@@ -112,9 +112,9 @@ const ChatMessages = ({
             </div>
         )}
       <div className="flex flex-col-reverse mt-auto">
-        {data?.pages.map((page, i) => (
+        {data?.pages?.map((page, i) => (
           <Fragment key={i}>
-            {page.items.map((message: MessageWithMemberWithProfile) => (
+            {page?.items?.map((message: MessageWithMemberWithProfile) => (
               <ChatItem
                 key={message.id}
                 currentMember={member}
